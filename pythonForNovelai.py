@@ -98,13 +98,12 @@ def loginAndDownload(email, password):
             except:
                 continue
             html = element.get_attribute('src')
-            print(str(i)+"html:" +html)
+            #print(str(i)+"html:" +html)
             
             if(html == html2):
-                print("yes")
                 continue
             html2 = html
-            print(str(i)+"html2:" +html2)
+            #print(str(i)+"html2:" +html2)
         
         
         
