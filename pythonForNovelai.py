@@ -70,10 +70,10 @@ def loginAndDownload(email, password):
     
     
     os.mkdir(prompt)
-    while (i< int(numOfImage)):
+    while (i<= int(numOfImage)):
         
         
-        #time.sleep(6)
+        
         gen = driver.find_element(By.XPATH,"//*[@id=\"__next\"]/div[2]/div[3]/div/div[1]/div[2]/div[1]/div[3]/button")
         
         flag = True
@@ -85,7 +85,7 @@ def loginAndDownload(email, password):
                 flag = True
         
         i += 1
-        #time.sleep(6)
+        
         flag = True
         html2 = ""
         html = ""
