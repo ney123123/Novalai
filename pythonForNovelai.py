@@ -12,6 +12,8 @@ pw = "boston2022"
 numOfImage = input("how much image?")
 prompt = input("prompt?")
 driver = webdriver.Safari()
+
+# convert blob to downloadable file
 def get_file_content(driver, uri):
   result = driver.execute_async_script("""
     var uri = arguments[0];
@@ -39,36 +41,36 @@ def loginAndDownload(email, password):
     PW.send_keys(Keys.RETURN)
     
     
+    #keep checking the page finished loading by checking the element exist or not 
+    while(True):
+        try:
+            driver.find_element(By.XPATH,"/html/body/div[4]/div/div[1]/div/button").click()
+            break
+        except:
+            continue
+    
     
     while(True):
-            try:
-                driver.find_element(By.XPATH,"/html/body/div[4]/div/div[1]/div/button").click()
-                break
-            except:
-                continue
-    
-    
-    while(True):
-            try:
-                imagePage = driver.find_element(By.XPATH,"//*[@id=\"app\"]/div[3]/div[3]/div[1]/div/div/div[3]/a")
-                action = ActionChains(driver)
+        try:
+            imagePage = driver.find_element(By.XPATH,"//*[@id=\"app\"]/div[3]/div[3]/div[1]/div/div/div[3]/a")
+            action = ActionChains(driver)
 
-                action.double_click(imagePage).perform()
-                break
-            except:
-                continue
+            action.double_click(imagePage).perform()
+            break
+        except:
+             continue
     
     i = 0
     while(True):
-            try:
-                enterPrompt = driver.find_element("id","prompt-input-0")
-                enterPrompt.send_keys(prompt)
-                break
-            except:
-                continue
+        try:
+            enterPrompt = driver.find_element("id","prompt-input-0")
+            enterPrompt.send_keys(prompt)
+            break
+        except:
+            continue
     
     
-    
+    #create a folder for the images
     os.mkdir(prompt)
     while (i<= int(numOfImage)):
         
@@ -103,7 +105,7 @@ def loginAndDownload(email, password):
                 continue
             html2 = html
             print(str(i)+"html2:" +html2)
-
+        
         
         
         bytes = get_file_content(driver, html)
