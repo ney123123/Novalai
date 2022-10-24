@@ -37,31 +37,74 @@ def loginAndDownload(email, password):
     PW = driver.find_element("id","password")
     PW.send_keys(password)
     PW.send_keys(Keys.RETURN)
-    time.sleep(6)
     
-    driver.find_element(By.XPATH,"/html/body/div[4]/div/div[1]/div/button").click()
-    time.sleep(1)
-    imagePage = driver.find_element(By.XPATH,"//*[@id=\"app\"]/div[3]/div[3]/div[1]/div/div/div[3]/a")
-    action = ActionChains(driver)
+    
+    
+    while(True):
+            try:
+                driver.find_element(By.XPATH,"/html/body/div[4]/div/div[1]/div/button").click()
+                break
+            except:
+                continue
+    
+    
+    while(True):
+            try:
+                imagePage = driver.find_element(By.XPATH,"//*[@id=\"app\"]/div[3]/div[3]/div[1]/div/div/div[3]/a")
+                action = ActionChains(driver)
 
-    action.double_click(imagePage).perform()
+                action.double_click(imagePage).perform()
+                break
+            except:
+                continue
+    
     i = 0
-    time.sleep(6)
-    enterPrompt = driver.find_element("id","prompt-input-0")
-    enterPrompt.send_keys(prompt)
+    while(True):
+            try:
+                enterPrompt = driver.find_element("id","prompt-input-0")
+                enterPrompt.send_keys(prompt)
+                break
+            except:
+                continue
+    
     
     
     os.mkdir(prompt)
     while (i< int(numOfImage)):
         
         
-        time.sleep(6)
+        #time.sleep(6)
         gen = driver.find_element(By.XPATH,"//*[@id=\"__next\"]/div[2]/div[3]/div/div[1]/div[2]/div[1]/div[3]/button")
-        gen.send_keys(Keys.RETURN)
+        
+        flag = True
+        while(flag):
+            try:
+                gen.send_keys(Keys.RETURN)
+                flag = False
+            except:
+                flag = True
+        
         i += 1
-        time.sleep(6)
-        element = driver.find_element(By.TAG_NAME, "img")
-        html = element.get_attribute('src')
+        #time.sleep(6)
+        flag = True
+        html2 = ""
+        html = ""
+        while(flag):
+            try:
+                element = driver.find_element(By.TAG_NAME, "img")
+                flag = False
+            except:
+                continue
+            html = element.get_attribute('src')
+            print(str(i)+"html:" +html)
+            
+            if(html == html2):
+                print("yes")
+                continue
+            html2 = html
+            print(str(i)+"html2:" +html2)
+
+        
         
         bytes = get_file_content(driver, html)
         filename = prompt+'/'+str(i)+'.jpg'  
