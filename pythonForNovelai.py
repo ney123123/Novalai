@@ -59,6 +59,7 @@ def get_file_content(driver, uri):
 
 def loginAndDownload(email, password):
     driver.get('https://novelai.net/login')
+    time.sleep(8)
     username = driver.find_element("id","username")
     username.send_keys(email)
     PW = driver.find_element("id","password")
