@@ -7,11 +7,36 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver import ActionChains
 import base64
 import os
+
+
+
+
+
 mail = "286studio@gmail.com"
 pw = "boston2022"
 numOfImage = input("how much image?")
 prompt = input("prompt?")
-driver = webdriver.Safari()
+while(True):
+      broswerType = input("what is your broswer? s for safari, c for chrome, f for firefox, e for edge")
+      if (broswerType != "s" and broswerType != "f" and broswerType != "e" and broswerType != "c") :
+        print("enter again")
+        continue
+      else :
+        break
+
+if(broswerType == "s") :
+  driver = webdriver.Safari()
+          
+elif (broswerType == "c") :
+  driver = webdriver.Chrome()
+elif (broswerType == "f") :
+  driver = webdriver.Firefox()
+elif (broswerType == "e") :
+  driver = webdriver.Edge()
+
+
+
+
 
 # convert blob to downloadable file
 def get_file_content(driver, uri):
@@ -101,9 +126,11 @@ def loginAndDownload(email, password):
             #print(str(i)+"html:" +html)
             
             if(html == html2):
+                flag = True
                 continue
             html2 = html
             #print(str(i)+"html2:" +html2)
+
         
         
         
